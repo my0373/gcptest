@@ -5,7 +5,7 @@
     gcp_cred_kind: serviceaccount
   tasks:
     - name: create a disk mapped from RHEL8 image
-      gcp_compute_disk:
+      google.cloud.gcp_compute_disk:
         name: disk-instance
         size_gb: 50
         source_image: projects/rhel-cloud/global/images/rhel-8-v20190905
@@ -16,7 +16,7 @@
       register: disk
 
     - name: create a  VPC network
-      gcp_compute_network:
+      google.cloud.gcp_compute_network:
         name: network-instance
         project: "{{ gcp_project }}"
         auth_kind: "{{ gcp_cred_kind }}"
@@ -24,7 +24,7 @@
       register: network
 
     - name: create an IPv4 public IP Address
-      gcp_compute_address:
+      google.cloud.gcp_compute_address:
         name: address-instance
         region: us-central1
         project: "{{ gcp_project }}"
@@ -33,7 +33,7 @@
       register: address
 
     - name: create the RHEL8 instance
-      gcp_compute_instance:
+      google.cloud.gcp_compute_instance:
         name: rhel8
         machine_type: n1-standard-1
         disks:
@@ -51,5 +51,5 @@
         auth_kind: "{{ gcp_cred_kind }}"
         state: present
     - name: Show RHEL8 Instance Details
-      debug:
+      ansible.builtin.debug:
         msg: "The RHEL8 instance is accessible at {{ address.address }}"
