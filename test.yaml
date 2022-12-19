@@ -3,6 +3,7 @@
   vars:
     gcp_project: "{{ gcp_project }}"
     gcp_cred_kind: serviceaccount
+
   tasks:
     - name: create a disk mapped from RHEL8 image
       google.cloud.gcp_compute_disk:
